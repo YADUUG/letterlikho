@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/YADUUG/letterlikho/static/css/main.40284b11.css",
+    "main.js": "/YADUUG/letterlikho/static/js/main.abcead1b.js",
+    "static/js/239.04012511.chunk.js": "/YADUUG/letterlikho/static/js/239.04012511.chunk.js",
+    "static/js/213.8a05980a.chunk.js": "/YADUUG/letterlikho/static/js/213.8a05980a.chunk.js",
+    "static/js/732.4ab93738.chunk.js": "/YADUUG/letterlikho/static/js/732.4ab93738.chunk.js",
+    "index.html": "/YADUUG/letterlikho/index.html",
+    "main.40284b11.css.map": "/YADUUG/letterlikho/static/css/main.40284b11.css.map",
+    "main.abcead1b.js.map": "/YADUUG/letterlikho/static/js/main.abcead1b.js.map",
+    "239.04012511.chunk.js.map": "/YADUUG/letterlikho/static/js/239.04012511.chunk.js.map",
+    "213.8a05980a.chunk.js.map": "/YADUUG/letterlikho/static/js/213.8a05980a.chunk.js.map",
+    "732.4ab93738.chunk.js.map": "/YADUUG/letterlikho/static/js/732.4ab93738.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.40284b11.css",
+    "static/js/main.abcead1b.js"
+  ]
+}
