@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/YADUUG/letterlikho/static/css/main.40284b11.css",
-    "main.js": "/YADUUG/letterlikho/static/js/main.e8cce884.js",
-    "static/js/239.04012511.chunk.js": "/YADUUG/letterlikho/static/js/239.04012511.chunk.js",
-    "static/js/213.8a05980a.chunk.js": "/YADUUG/letterlikho/static/js/213.8a05980a.chunk.js",
-    "static/js/732.4ab93738.chunk.js": "/YADUUG/letterlikho/static/js/732.4ab93738.chunk.js",
-    "index.html": "/YADUUG/letterlikho/index.html",
-    "main.40284b11.css.map": "/YADUUG/letterlikho/static/css/main.40284b11.css.map",
-    "main.e8cce884.js.map": "/YADUUG/letterlikho/static/js/main.e8cce884.js.map",
-    "239.04012511.chunk.js.map": "/YADUUG/letterlikho/static/js/239.04012511.chunk.js.map",
-    "213.8a05980a.chunk.js.map": "/YADUUG/letterlikho/static/js/213.8a05980a.chunk.js.map",
-    "732.4ab93738.chunk.js.map": "/YADUUG/letterlikho/static/js/732.4ab93738.chunk.js.map"
+    "main.css": "/letterlikho/static/css/main.40284b11.css",
+    "main.js": "/letterlikho/static/js/main.e78bd5ea.js",
+    "static/js/239.04012511.chunk.js": "/letterlikho/static/js/239.04012511.chunk.js",
+    "static/js/213.8a05980a.chunk.js": "/letterlikho/static/js/213.8a05980a.chunk.js",
+    "static/js/732.4ab93738.chunk.js": "/letterlikho/static/js/732.4ab93738.chunk.js",
+    "index.html": "/letterlikho/index.html",
+    "main.40284b11.css.map": "/letterlikho/static/css/main.40284b11.css.map",
+    "main.e78bd5ea.js.map": "/letterlikho/static/js/main.e78bd5ea.js.map",
+    "239.04012511.chunk.js.map": "/letterlikho/static/js/239.04012511.chunk.js.map",
+    "213.8a05980a.chunk.js.map": "/letterlikho/static/js/213.8a05980a.chunk.js.map",
+    "732.4ab93738.chunk.js.map": "/letterlikho/static/js/732.4ab93738.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.40284b11.css",
-    "static/js/main.e8cce884.js"
+    "static/js/main.e78bd5ea.js"
   ]
 }
