@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/letterlikho/static/css/main.40284b11.css",
-    "main.js": "/letterlikho/static/js/main.e78bd5ea.js",
+    "main.js": "/letterlikho/static/js/main.8720e690.js",
     "static/js/239.04012511.chunk.js": "/letterlikho/static/js/239.04012511.chunk.js",
     "static/js/213.8a05980a.chunk.js": "/letterlikho/static/js/213.8a05980a.chunk.js",
     "static/js/732.4ab93738.chunk.js": "/letterlikho/static/js/732.4ab93738.chunk.js",
     "index.html": "/letterlikho/index.html",
     "main.40284b11.css.map": "/letterlikho/static/css/main.40284b11.css.map",
-    "main.e78bd5ea.js.map": "/letterlikho/static/js/main.e78bd5ea.js.map",
+    "main.8720e690.js.map": "/letterlikho/static/js/main.8720e690.js.map",
     "239.04012511.chunk.js.map": "/letterlikho/static/js/239.04012511.chunk.js.map",
     "213.8a05980a.chunk.js.map": "/letterlikho/static/js/213.8a05980a.chunk.js.map",
     "732.4ab93738.chunk.js.map": "/letterlikho/static/js/732.4ab93738.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.40284b11.css",
-    "static/js/main.e78bd5ea.js"
+    "static/js/main.8720e690.js"
   ]
 }
