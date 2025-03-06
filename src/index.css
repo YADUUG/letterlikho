@@ -1,0 +1,224 @@
+:root {
+  --primary-color: #000000;
+  --secondary-color: #f8f9fa;
+  --text-color: #333;
+  --accent-color: #e60023;
+  --white: #ffffff;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+  --container-width: 1200px;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --border-radius: 8px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+.header {
+  background: var(--primary-color);
+  color: var(--white);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-shadow: var(--shadow);
+}
+
+.footer {
+  background: var(--primary-color);
+  color: var(--white);
+  text-align: center;
+  padding: 1rem 2rem;
+  width: 100%;
+  margin-top: auto;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.nav-links a {
+  color: var(--white);
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  transition: var(--transition);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+
+/* Main Section */
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  min-height: 80vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.generator-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 800px;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.generator-card {
+  background: var(--white);
+  color: var(--primary-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  transition: var(--transition);
+  width: calc(50% - 20px);
+  box-shadow: var(--shadow);
+  border: 2px solid var(--primary-color);
+}
+
+.generator-card:hover,
+.generator-card:focus {
+  background: var(--primary-color);
+  color: var(--white);
+  transform: translateY(-5px);
+  outline: none;
+}
+
+.letter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--white);
+  padding: 3rem 3rem 3rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  max-width: 800px;
+  width: 100%;
+  margin: 2rem auto;
+}
+
+.letter-content {
+  width: 100%;
+  min-height: 400px;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  box-shadow: var(--shadow);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.download-btn {
+  background: var(--accent-color);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: var(--transition);
+  margin-top: 1.5rem;
+}
+
+.download-btn:hover,
+.download-btn:focus {
+  background: var(--primary-color);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .nav-links {
+    margin-top: 1rem;
+  }
+  
+  .nav-links a {
+    margin: 0.5rem;
+    display: inline-block;
+  }
+  
+  .letter-container {
+    padding: 1.5rem;
+  }
+  
+  .letter-content {
+    padding: 1rem;
+  }
+  
+  .generator-card {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+  
+  .home {
+    padding: 1rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* High contrast mode */
+@media (forced-colors: active) {
+  .generator-card,
+  .download-btn {
+    border: 2px solid currentColor;
+  }
+}
