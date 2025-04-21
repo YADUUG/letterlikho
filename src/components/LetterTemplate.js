@@ -53,9 +53,6 @@ This certificate is necessary for my future academic or professional pursuits.
 I would appreciate your prompt attention to this request. Kindly let me know if any further details are needed. Thank you for your assistance and support.`
 };
 
-
-
-
 const LetterTemplate = () => {
   const [letterType, setLetterType] = useState("Fee Concession");
   const [details, setDetails] = useState({
@@ -98,7 +95,6 @@ const LetterTemplate = () => {
     doc.text(`Subject: ${letterType} Request`, 20, 70, { fontStyle: "bold" });
     doc.setFontSize(12);
     
-    // Replace multiple placeholders dynamically
     const bodyText = generateLetterBody(letterTypes[letterType], details);
     
     doc.text(bodyText, 20, 85, { align:"justify", maxWidth: 170 });
@@ -112,35 +108,142 @@ const LetterTemplate = () => {
     doc.text(`Phone No: ${details.phone || "________"}`, 20, 205);
     doc.save(`${details.rollNumber} - ${letterType}.pdf`);
   };
-  
 
   return (
-    <div className="letter-container animate__animated animate__fadeIn">
-      <h2 className="title animate__animated animate__bounceIn">{letterType} Letter</h2>
-      <label>Select Letter Type: </label>
-      <select value={letterType} onChange={(e) => setLetterType(e.target.value)}>
-        {Object.keys(letterTypes).map((type) => (
-          <option key={type} value={type}>{type}</option>
-        ))}
-      </select>
-      <br></br>
-      <div className="letter-content">
-        <p><strong>To:</strong> <input type="text" name="to" placeholder="Enter recipient name" value={details.to} onChange={handleChange} /></p>
-        <p><strong>Department:</strong> <input type="text" name="department" placeholder="Enter department" value={details.department} onChange={handleChange} /></p>
-        <p>Guru Nanak Dev University,</p>
-        <p>Amritsar, Punjab, India - 143001</p>
-        <p><strong>Reason:</strong> <input type="text" name="reason" placeholder="Enter reason" value={details.reason} onChange={handleChange} /></p>
-        <p align="justify">{letterTypes[letterType].replace("{reason}", details.reason || "________")}</p>
-        <p><strong>Sincerely,</strong></p>
-        <p><input type="text" name="name" placeholder="Your Name" value={details.name} onChange={handleChange} /></p>
-        <p><input type="text" name="class" placeholder="Class" value={details.class} onChange={handleChange} /></p>
-        <p><input type="text" name="batch" placeholder="Batch - Passout Year" value={details.batch} onChange={handleChange} /></p>
-        <p><input type="text" name="rollNumber" placeholder="Roll Number" value={details.rollNumber} onChange={handleChange} /></p>
-        <p><input type="text" name="studentId" placeholder="Student ID" value={details.studentId} onChange={handleChange} /></p>
-        <p><input type="text" name="phone" placeholder="Phone No" value={details.phone} onChange={handleChange} /></p>
+    <div className="letter-container">
+      <h2 className="title animate__animated animate__fadeInDown">{letterType} Letter</h2>
+      
+      <div className="form-group animate__animated animate__fadeIn">
+        <label>Select Letter Type</label>
+        <select 
+          value={letterType} 
+          onChange={(e) => setLetterType(e.target.value)}
+          className="letter-type-select"
+        >
+          {Object.keys(letterTypes).map((type) => (
+            <option key={type} value={type}>{type}</option>
+          ))}
+        </select>
       </div>
-      <br></br>
-      <button onClick={downloadPDF} className="download-btn animate__animated animate__pulse animate__infinite">
+
+      <div className="letter-content animate__animated animate__fadeInUp">
+        <div className="form-group">
+          <label>To</label>
+          <input 
+            type="text" 
+            name="to" 
+            placeholder="Enter recipient name" 
+            value={details.to} 
+            onChange={handleChange} 
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Department</label>
+          <input 
+            type="text" 
+            name="department" 
+            placeholder="Enter department" 
+            value={details.department} 
+            onChange={handleChange} 
+          />
+        </div>
+
+        <div className="university-info">
+          <p>Guru Nanak Dev University,</p>
+          <p>Amritsar, Punjab, India - 143001</p>
+        </div>
+
+        <div className="form-group">
+          <label>Reason</label>
+          <input 
+            type="text" 
+            name="reason" 
+            placeholder="Enter reason" 
+            value={details.reason} 
+            onChange={handleChange} 
+          />
+        </div>
+
+        <div className="letter-body">
+          <p>{letterTypes[letterType].replace("{reason}", details.reason || "________")}</p>
+        </div>
+
+        <div className="signature-section">
+          <p className="signature-label">Sincerely,</p>
+          
+          <div className="form-group">
+            <label>Your Name</label>
+            <input 
+              type="text" 
+              name="name" 
+              placeholder="Your Name" 
+              value={details.name} 
+              onChange={handleChange} 
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Class</label>
+            <input 
+              type="text" 
+              name="class" 
+              placeholder="Class" 
+              value={details.class} 
+              onChange={handleChange} 
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Batch</label>
+            <input 
+              type="text" 
+              name="batch" 
+              placeholder="Batch - Passout Year" 
+              value={details.batch} 
+              onChange={handleChange} 
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Roll Number</label>
+            <input 
+              type="text" 
+              name="rollNumber" 
+              placeholder="Roll Number" 
+              value={details.rollNumber} 
+              onChange={handleChange} 
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Student ID</label>
+            <input 
+              type="text" 
+              name="studentId" 
+              placeholder="Student ID" 
+              value={details.studentId} 
+              onChange={handleChange} 
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Phone Number</label>
+            <input 
+              type="text" 
+              name="phone" 
+              placeholder="Phone No" 
+              value={details.phone} 
+              onChange={handleChange} 
+            />
+          </div>
+        </div>
+      </div>
+
+      <button 
+        onClick={downloadPDF} 
+        className="download-btn animate__animated animate__pulse animate__infinite"
+      >
         Download as PDF
       </button>
     </div>
