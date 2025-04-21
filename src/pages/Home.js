@@ -1,33 +1,114 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "animate.css";
+import { 
+  Container, 
+  Title, 
+  Text, 
+  SimpleGrid, 
+  Card, 
+  Group, 
+  Badge,
+  Box,
+  ThemeIcon,
+  Overlay,
+  Button
+} from "@mantine/core";
+import { IconFileText, IconRobot, IconArrowRight } from "@tabler/icons-react";
 import "./Home.css";
 
 const Home = () => {
   return (
-    <div className="home-container animate__animated animate__fadeIn">
-      <h1 className="home-title animate__animated animate__fadeInDown">
-        Welcome to Letter Generator
-      </h1>
-      <p className="home-subtitle animate__animated animate__fadeInUp">
-        Create professional letters in minutes
-      </p>
+    <Container size="lg" className="home-container">
+      <Box className="hero-section" mb={50}>
+        <Title className="home-title" ta="center">
+          Welcome to Letter Likho
+        </Title>
+        <Text size="xl" className="home-subtitle" ta="center" c="dimmed">
+          Create professional letters in minutes with our easy-to-use templates
+        </Text>
+      </Box>
       
-      <div className="generator-grid animate__animated animate__fadeInUp">
-        <Link to="/letter-generator" className="generator-card">
-          <div className="card-icon">📝</div>
-          <h3>Letter Generator</h3>
-          <p>Create custom letters with ease</p>
-        </Link>
+      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
+        <Card
+          component={Link}
+          to="/letter-generator"
+          className="feature-card"
+          padding="xl"
+          radius="md"
+          withBorder
+        >
+          <Card.Section className="card-hover">
+            <Group justify="center" py="xl">
+              <ThemeIcon size={80} radius="md" variant="light" color="indigo">
+                <IconFileText size={40} stroke={1.5} />
+              </ThemeIcon>
+            </Group>
+          </Card.Section>
+
+          <Title order={3} ta="center" mt="md">
+            Letter Generator
+          </Title>
+          <Text size="sm" c="dimmed" ta="center" mt="sm">
+            Generate professional letters using our pre-built templates
+          </Text>
+          <Button
+            variant="light"
+            color="indigo"
+            fullWidth
+            mt="md"
+            radius="md"
+            rightSection={<IconArrowRight size={16} />}
+          >
+            Create Letter
+          </Button>
+        </Card>
         
-        <div className="generator-card coming-soon">
-          <div className="card-icon">🤖</div>
-          <h3>AI Generator</h3>
-          <p>Coming Soon</p>
-          <span className="coming-soon-badge">Soon</span>
-        </div>
-      </div>
-    </div>
+        <Card
+          className="feature-card"
+          padding="xl"
+          radius="md"
+          withBorder
+        >
+          <Card.Section className="card-hover">
+            <Group justify="center" py="xl">
+              <ThemeIcon size={80} radius="md" variant="light" color="cyan">
+                <IconRobot size={40} stroke={1.5} />
+              </ThemeIcon>
+            </Group>
+          </Card.Section>
+
+          <Title order={3} ta="center" mt="md">
+            AI Generator
+          </Title>
+          <Text size="sm" c="dimmed" ta="center" mt="sm">
+            Generate custom letters using AI - Coming Soon
+          </Text>
+          <Button
+            variant="light"
+            color="cyan"
+            fullWidth
+            mt="md"
+            radius="md"
+            disabled
+            rightSection={<IconArrowRight size={16} />}
+          >
+            Coming Soon
+          </Button>
+          <Badge
+            className="coming-soon-badge"
+            variant="gradient"
+            gradient={{ from: 'indigo', to: 'cyan' }}
+            size="lg"
+            radius="xl"
+            pos="absolute"
+            top={16}
+            right={16}
+          >
+            Soon
+          </Badge>
+        </Card>
+      </SimpleGrid>
+    </Container>
   );
 };
 

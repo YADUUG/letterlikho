@@ -1,6 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { jsPDF } from "jspdf";
-import "animate.css";
+import {
+  Container,
+  Title,
+  Select,
+  TextInput,
+  Text,
+  Paper,
+  Button,
+  Stack,
+  Divider,
+  Group,
+  Box,
+  Stepper,
+  Card,
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { IconDownload, IconArrowRight } from "@tabler/icons-react";
 import "./LetterTemplate.css";
 
 const letterTypes = {
@@ -54,22 +70,41 @@ I would appreciate your prompt attention to this request. Kindly let me know if 
 };
 
 const LetterTemplate = () => {
-  const [letterType, setLetterType] = useState("Fee Concession");
-  const [details, setDetails] = useState({
-    to: "",
-    department: "",
-    reason: "",
-    name: "",
-    rollNumber: "",
-    studentId: "",
-    phone: "",
-    class: "",
-    batch: ""
+  const [active, setActive] = React.useState(0);
+  const [letterType, setLetterType] = React.useState("Fee Concession");
+  
+  const form = useForm({
+    initialValues: {
+      to: "",
+      department: "",
+      reason: "",
+      name: "",
+      rollNumber: "",
+      studentId: "",
+      phone: "",
+      class: "",
+      batch: ""
+    },
+    validate: {
+      to: (value) => (value ? null : 'Recipient name is required'),
+      department: (value) => (value ? null : 'Department is required'),
+      reason: (value) => (value ? null : 'Reason is required'),
+      name: (value) => (value ? null : 'Your name is required'),
+      class: (value) => (value ? null : 'Class is required'),
+      batch: (value) => (value ? null : 'Batch is required'),
+    }
   });
 
-  const handleChange = (e) => {
-    setDetails({ ...details, [e.target.name]: e.target.value });
+  const nextStep = () => {
+    if (active === 0) {
+      if (!letterType) return;
+    } else if (active === 1) {
+      if (!form.values.to || !form.values.department || !form.values.reason) return;
+    }
+    setActive((current) => (current < 3 ? current + 1 : current));
   };
+
+  const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
 
   const generateLetterBody = (template, details) => {
     return template.replace(/{reason}/g, details.reason || "________")
@@ -87,166 +122,170 @@ const LetterTemplate = () => {
     doc.setFontSize(16);
     doc.text(letterType, 105, 20, { align: "center" });
     doc.setFontSize(12);
-    doc.text(`To: ${details.to || "________"}`, 20, 40);
-    doc.text(`Department: ${details.department || "________"}`, 20, 45);
+    doc.text(`To: ${form.values.to || "________"}`, 20, 40);
+    doc.text(`Department: ${form.values.department || "________"}`, 20, 45);
     doc.text("Guru Nanak Dev University,", 20, 50);
     doc.text("Amritsar, Punjab, India - 143001", 20, 55);
     doc.setFontSize(14);
     doc.text(`Subject: ${letterType} Request`, 20, 70, { fontStyle: "bold" });
     doc.setFontSize(12);
     
-    const bodyText = generateLetterBody(letterTypes[letterType], details);
+    const bodyText = generateLetterBody(letterTypes[letterType], form.values);
     
     doc.text(bodyText, 20, 85, { align:"justify", maxWidth: 170 });
     doc.text("Thank you for your time and consideration.", 20, 160);
     doc.text("Sincerely,", 20, 170);
-    doc.text(`${details.name || "________"}`, 20, 180);
-    doc.text(`Class: ${details.class || "________"}`, 20, 185);
-    doc.text(`Batch: ${details.batch || "________"}`, 20, 190);
-    doc.text(`Roll Number: ${details.rollNumber || "________"}`, 20, 195);
-    doc.text(`Student ID: ${details.studentId || "________"}`, 20, 200);
-    doc.text(`Phone No: ${details.phone || "________"}`, 20, 205);
-    doc.save(`${details.rollNumber} - ${letterType}.pdf`);
+    doc.text(`${form.values.name || "________"}`, 20, 180);
+    doc.text(`Class: ${form.values.class || "________"}`, 20, 185);
+    doc.text(`Batch: ${form.values.batch || "________"}`, 20, 190);
+    doc.text(`Roll Number: ${form.values.rollNumber || "________"}`, 20, 195);
+    doc.text(`Student ID: ${form.values.studentId || "________"}`, 20, 200);
+    doc.text(`Phone No: ${form.values.phone || "________"}`, 20, 205);
+    doc.save(`${form.values.rollNumber || "letter"} - ${letterType}.pdf`);
   };
 
   return (
-    <div className="letter-container">
-      <h2 className="title animate__animated animate__fadeInDown">{letterType} Letter</h2>
-      
-      <div className="form-group animate__animated animate__fadeIn">
-        <label>Select Letter Type</label>
-        <select 
-          value={letterType} 
-          onChange={(e) => setLetterType(e.target.value)}
-          className="letter-type-select"
-        >
-          {Object.keys(letterTypes).map((type) => (
-            <option key={type} value={type}>{type}</option>
-          ))}
-        </select>
-      </div>
+    <Container size="md" className="letter-container">
+      <Title order={1} className="title" ta="center" mb="xl">
+        Create Your Letter
+      </Title>
 
-      <div className="letter-content animate__animated animate__fadeInUp">
-        <div className="form-group">
-          <label>To</label>
-          <input 
-            type="text" 
-            name="to" 
-            placeholder="Enter recipient name" 
-            value={details.to} 
-            onChange={handleChange} 
-          />
-        </div>
+      <Card shadow="sm" p="lg" radius="md" withBorder>
+        <Stepper active={active} onStepClick={setActive} breakpoint="sm">
+          <Stepper.Step label="Letter Type" description="Choose template">
+            <Box mt="xl">
+              <Select
+                label="Select Letter Type"
+                placeholder="Choose a letter type"
+                value={letterType}
+                onChange={setLetterType}
+                data={Object.keys(letterTypes).map((type) => ({ value: type, label: type }))}
+                size="md"
+                radius="md"
+                required
+              />
+              
+              {letterType && (
+                <Paper shadow="xs" p="md" mt="md" radius="md" withBorder>
+                  <Text size="sm" c="dimmed">Preview:</Text>
+                  <Text mt="xs">{letterTypes[letterType].split('\n')[0]}</Text>
+                </Paper>
+              )}
+            </Box>
+          </Stepper.Step>
 
-        <div className="form-group">
-          <label>Department</label>
-          <input 
-            type="text" 
-            name="department" 
-            placeholder="Enter department" 
-            value={details.department} 
-            onChange={handleChange} 
-          />
-        </div>
+          <Stepper.Step label="Recipient" description="Add details">
+            <Stack gap="md" mt="xl">
+              <TextInput
+                label="To"
+                placeholder="Enter recipient name"
+                required
+                {...form.getInputProps('to')}
+              />
 
-        <div className="university-info">
-          <p>Guru Nanak Dev University,</p>
-          <p>Amritsar, Punjab, India - 143001</p>
-        </div>
+              <TextInput
+                label="Department"
+                placeholder="Enter department"
+                required
+                {...form.getInputProps('department')}
+              />
 
-        <div className="form-group">
-          <label>Reason</label>
-          <input 
-            type="text" 
-            name="reason" 
-            placeholder="Enter reason" 
-            value={details.reason} 
-            onChange={handleChange} 
-          />
-        </div>
+              <TextInput
+                label="Reason"
+                placeholder="Enter reason"
+                required
+                {...form.getInputProps('reason')}
+              />
 
-        <div className="letter-body">
-          <p>{letterTypes[letterType].replace("{reason}", details.reason || "________")}</p>
-        </div>
+              <Paper p="md" bg="gray.0" radius="md">
+                <Text size="sm">Preview:</Text>
+                <Text mt="xs">
+                  {generateLetterBody(letterTypes[letterType], form.values).split('\n')[0]}
+                </Text>
+              </Paper>
+            </Stack>
+          </Stepper.Step>
 
-        <div className="signature-section">
-          <p className="signature-label">Sincerely,</p>
-          
-          <div className="form-group">
-            <label>Your Name</label>
-            <input 
-              type="text" 
-              name="name" 
-              placeholder="Your Name" 
-              value={details.name} 
-              onChange={handleChange} 
-            />
-          </div>
+          <Stepper.Step label="Your Details" description="Personal info">
+            <Stack gap="md" mt="xl">
+              <TextInput
+                label="Your Name"
+                placeholder="Enter your name"
+                required
+                {...form.getInputProps('name')}
+              />
 
-          <div className="form-group">
-            <label>Class</label>
-            <input 
-              type="text" 
-              name="class" 
-              placeholder="Class" 
-              value={details.class} 
-              onChange={handleChange} 
-            />
-          </div>
+              <Group grow>
+                <TextInput
+                  label="Class"
+                  placeholder="Enter class"
+                  required
+                  {...form.getInputProps('class')}
+                />
+                <TextInput
+                  label="Batch"
+                  placeholder="Batch - Passout Year"
+                  required
+                  {...form.getInputProps('batch')}
+                />
+              </Group>
 
-          <div className="form-group">
-            <label>Batch</label>
-            <input 
-              type="text" 
-              name="batch" 
-              placeholder="Batch - Passout Year" 
-              value={details.batch} 
-              onChange={handleChange} 
-            />
-          </div>
+              <Group grow>
+                <TextInput
+                  label="Roll Number"
+                  placeholder="Enter roll number"
+                  {...form.getInputProps('rollNumber')}
+                />
+                <TextInput
+                  label="Student ID"
+                  placeholder="Enter student ID"
+                  {...form.getInputProps('studentId')}
+                />
+              </Group>
 
-          <div className="form-group">
-            <label>Roll Number</label>
-            <input 
-              type="text" 
-              name="rollNumber" 
-              placeholder="Roll Number" 
-              value={details.rollNumber} 
-              onChange={handleChange} 
-            />
-          </div>
+              <TextInput
+                label="Phone Number"
+                placeholder="Enter phone number"
+                {...form.getInputProps('phone')}
+              />
+            </Stack>
+          </Stepper.Step>
 
-          <div className="form-group">
-            <label>Student ID</label>
-            <input 
-              type="text" 
-              name="studentId" 
-              placeholder="Student ID" 
-              value={details.studentId} 
-              onChange={handleChange} 
-            />
-          </div>
+          <Stepper.Completed>
+            <Stack gap="md" mt="xl">
+              <Paper p="xl" radius="md" withBorder>
+                <Title order={4} mb="md">Letter Preview</Title>
+                <Text component="pre" style={{ whiteSpace: 'pre-wrap' }}>
+                  {generateLetterBody(letterTypes[letterType], form.values)}
+                </Text>
+              </Paper>
+            </Stack>
+          </Stepper.Completed>
+        </Stepper>
 
-          <div className="form-group">
-            <label>Phone Number</label>
-            <input 
-              type="text" 
-              name="phone" 
-              placeholder="Phone No" 
-              value={details.phone} 
-              onChange={handleChange} 
-            />
-          </div>
-        </div>
-      </div>
-
-      <button 
-        onClick={downloadPDF} 
-        className="download-btn animate__animated animate__pulse animate__infinite"
-      >
-        Download as PDF
-      </button>
-    </div>
+        <Group justify="center" mt="xl">
+          {active > 0 && (
+            <Button variant="default" onClick={prevStep}>
+              Back
+            </Button>
+          )}
+          {active < 3 ? (
+            <Button onClick={nextStep} rightSection={<IconArrowRight size={16} />}>
+              Next step
+            </Button>
+          ) : (
+            <Button
+              onClick={downloadPDF}
+              variant="gradient"
+              gradient={{ from: 'indigo', to: 'cyan' }}
+              leftSection={<IconDownload size={16} />}
+            >
+              Download PDF
+            </Button>
+          )}
+        </Group>
+      </Card>
+    </Container>
   );
 };
 
